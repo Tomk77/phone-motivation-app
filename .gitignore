@@ -41,3 +41,6 @@ app-example
 # generated native folders
 /ios
 /android
+# Generated assets
+assets/icons/*.png
+assets/splash/*.png

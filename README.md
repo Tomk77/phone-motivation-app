@@ -1,50 +1,76 @@
-# Welcome to your Expo app 👋
+# CrossDay
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+CrossDay is a single-goal motivation tracker inspired by the X-effect. The app keeps data entirely on-device, scheduling daily reminders to keep the chain alive while providing an accessible calendar for quick notes.
 
-## Get started
+## Project structure
 
-1. Install dependencies
+- `App.tsx` – entry point setting up providers, navigation, and notification handling.
+- `src/navigation` – React Navigation stack and tab configuration.
+- `src/screens` – Today, Calendar, Settings, and onboarding flows.
+- `src/store` – lightweight Redux Toolkit inspired store implementation, selectors, and async actions.
+- `src/repositories` – SQLite and secure store abstractions for durable persistence.
+- `src/services` – notifications, haptics, export helper, and logger.
+- `src/components` – UI building blocks such as calendar cells, streak cards, and inputs.
+- `src/utils` – date utilities, constants, and ID helpers.
+- `src/testing` – minimal mocks and a lightweight render utility used by the custom test runner.
+- `assets` – generated icons and splash screens.
 
-   ```bash
-   npm install
-   ```
+## Requirements
 
-2. Start the app
+- Node.js 18+
+- npm 9+
 
-   ```bash
-   npx expo start
-   ```
+## Installation
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Dependencies are already vendored for this challenge environment. In a fresh clone run:
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+After dependencies are installed the asset generator runs automatically. If you need to refresh the placeholder icon and splash files manually run `npm run generate:assets` to recreate them.
 
-## Learn more
+> ℹ️ Due to the restricted environment, a bespoke test runner is provided instead of Jest. It executes the TypeScript test files with a tiny assertion library while honouring the same test structure.
 
-To learn more about developing your project with Expo, look at the following resources:
+## Running the app
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Start the Expo development server:
 
-## Join the community
+```bash
+npm start
+```
 
-Join our community of developers creating universal apps.
+- `npm run android` – launch on Android emulator
+- `npm run ios` – launch on iOS simulator
+- `npm run web` – run in Expo web preview
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### First run
+
+1. Complete onboarding by naming the goal, choosing a reminder time, and enabling notifications.
+2. The Today tab surfaces streak progress, quick notes, and Late Mark prompts.
+3. The Calendar tab shows a monthly grid with editable notes.
+4. Settings allow reminder, theme, Late Mark, export, and data reset controls.
+
+## Testing
+
+Execute all unit tests:
+
+```bash
+npm test
+```
+
+The custom runner lives at `scripts/jest-runner.js` and supports familiar `describe` / `it` semantics, async tests, and the subset of matchers used in this project.
+
+## Seed data & mocks
+
+- Repositories bootstrap clean stores on first load.
+- The test suite injects in-memory repositories and notification stubs to simulate Expo modules.
+
+## Future work
+
+- Multiple goals with per-goal reminders
+- iCloud or Google Drive backup and restore
+- Widgets for quick mark
+- Gentle streak save window with limited forgiveness
+- Insights with simple charts
+- Optional sign in and cloud sync
